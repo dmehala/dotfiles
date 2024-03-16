@@ -1,0 +1,89 @@
+live_config_reload: true
+
+shell:
+  #program: C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe
+  #args:
+  #  - -noe
+  #  - -c "&{Import-Module """G:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\Microsoft.VisualStudio.DevShell.dll"""; Enter-VsDevShell 7e993639 -DevCmdArguments '-arch=x64 -no_logo'}"
+  #args:
+  #  - /k "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsDevCmd.bat"
+  #  - -arch=x64
+  #  - -host_arch=x64
+
+font:
+  normal:
+    family: "FiraCode Nerd Font"
+    #    family: "JetBrainsMonoNL NFM"
+    style: "Regular"
+
+  bold:
+    family: "FiraCode Nerd Font"
+      #family: "JetBrainsMonoNL NFM"
+    style: "Bold"
+
+  size: 12.0
+
+offset:
+  x: 0
+  y: 0
+
+colors:
+  # Tomorrow Night (https://github.com/aarowill/base16-alacritty/blob/master/colors/base16-tomorrow-night.yml)
+  # Default colors
+  primary:
+    background: '0x1d1f21'
+    foreground: '0xc5c8c6'
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: '0x1d1f21'
+    cursor: '0xc5c8c6'
+  normal:
+    black:   '0x1d1f21'
+    red:     '0xcc6666'
+    green:   '0xb5bd68'
+    yellow:  '0xf0c674'
+    blue:    '0x81a2be'
+    magenta: '0xb294bb'
+    cyan:    '0x8abeb7'
+    white:   '0xc5c8c6'
+  bright:
+    black:   '0x969896'
+    red:     '0xde935f'
+    green:   '0x282a2e'
+    yellow:  '0x373b41'
+    blue:    '0xb4b7b4'
+    magenta: '0xe0e0e0'
+    cyan:    '0xa3685a'
+    white:   '0xffffff'
+
+url:
+  launcher:
+    program: explorer
+
+  modifiers: Control
+
+mouse:
+  hide_when_typing: false
+
+selection:
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>"
+  save_to_clipboard: true
+
+mouse_bindings:
+  - { mouse: Right, action: PasteSelection }
+
+alt_send_esc: true
+
+key_bindings:
+  - { key: V,        mods: Control|Shift, action: Paste            }
+  - { key: C,        mods: Control|Shift, action: Copy             }
+  - { key: Insert,   mods: Shift,         action: PasteSelection   }
+  - { key: Key0,     mods: Control,       action: ResetFontSize    }
+  - { key: Equals,   mods: Control,       action: IncreaseFontSize }
+  - { key: Minus,    mods: Control,       action: DecreaseFontSize }
+  - { key: Return,   mods: Alt,           action: ToggleFullscreen }
+  - { key: Copy,                          action: Copy }
+  - { key: Left,     mods: Control,       chars: "\x1b[1;5D" }
+  - { key: Left,     mods: Alt,           chars: "\x1b[1;3D" }
+  - { key: Right,    mods: Control,       chars: "\x1b[1;5C" }
+  - { key: Right,    mods: Alt,           chars: "\x1b[1;3C" }
