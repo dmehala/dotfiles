@@ -1,16 +1,11 @@
-local is_loaded, cmp = pcall(require, "cmp")
-if not is_loaded then
-  print "Failed to load cmp"
-  return
-end
+local cmp = require("cmp")
+--local luasnip_is_loaded, luasnip = pcall(require, "luasnip")
+--if not luasnip_is_loaded then
+--  print "Failed to load luasnip (snippet engine)"
+--  return
+--end
 
-local luasnip_is_loaded, luasnip = pcall(require, "luasnip")
-if not luasnip_is_loaded then
-  print "Failed to load luasnip (snippet engine)"
-  return
-end
-
-require("luasnip/loaders/from_vscode").lazy_load()
+--require("luasnip/loaders/from_vscode").lazy_load()
 
 local kind_icons = {
   Text = "󰉿",
@@ -40,12 +35,12 @@ local kind_icons = {
   TypeParameter = "",
 }
 
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end
-  },
+return {
+  --snippet = {
+    --expand = function(args)
+    --  luasnip.lsp_expand(args.body)
+    --end
+  --},
   mapping = {
     ["<C-k>"] = cmp.mapping.select_prev_item(),
 		["<C-j>"] = cmp.mapping.select_next_item(),
@@ -63,8 +58,8 @@ cmp.setup {
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      elseif luasnip.expandable() then
-        luasnip.expand()
+      --elseif luasnip.expandable() then
+      -- luasnip.expand()
       else
         fallback()
       end
@@ -75,8 +70,8 @@ cmp.setup {
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
+      --elseif luasnip.jumpable(-1) then
+      --  luasnip.jump(-1)
       else
         fallback()
       end
@@ -92,7 +87,7 @@ cmp.setup {
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
       -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
       vim_item.menu = ({
-        luasnip = "[Snipper]",
+        --luasnip = "[Snipper]",
         nvim_lsp = "[LSP]",
         buffer = "[Buffer]",
         path = "[Path]",
@@ -101,7 +96,7 @@ cmp.setup {
     end,
   },
   sources = {
-    { name = "luasnip" },
+--    { name = "luasnip" },
     { name = "nvim_lsp" },
     { name = "buffer" },
     { name = "path" },
