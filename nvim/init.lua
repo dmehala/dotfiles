@@ -93,16 +93,10 @@ local plugins = {
 		dependencies = {
 			"williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
-			"lvimuser/lsp-inlayhints.nvim",
 		},
 		config = function()
 			require("user.lsp")
 		end,
-	},
-	{
-		"numToStr/Comment.nvim",
-		opts = {},
-		lazy = false,
 	},
 	{
 		"hrsh7th/nvim-cmp",

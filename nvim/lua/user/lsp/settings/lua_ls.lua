@@ -1,16 +1,20 @@
+local common = require("user.lsp.common")
+
 return {
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { "vim" },
-            },
-            workspace = {
-                library = vim.api.nvim_get_runtime_file("", true),
-                checkThirdParty = false
-            },
-            telemetry = {
-              enable = false
-            }
-        },
-    },
+	capabilities = common.capabilities,
+	on_attach = common.on_attach,
+	settings = {
+		Lua = {
+			diagnostics = {
+				globals = { "vim" },
+			},
+			workspace = {
+				library = vim.api.nvim_get_runtime_file("", true),
+				checkThirdParty = false,
+			},
+			telemetry = {
+				enable = false,
+			},
+		},
+	},
 }

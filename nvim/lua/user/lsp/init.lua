@@ -10,21 +10,11 @@ if not mason_is_loaded then
 	return
 end
 
--- Configure mason-lspconfig
 local masonlsp_is_loaded, mason_lspconfig = pcall(require, "mason-lspconfig")
 if not masonlsp_is_loaded then
 	print("ERROR: Failed to load mason-lspconfig")
 	return
 end
-
--- Inlayhints are argument hints
-local inlayhints_is_loaded, lsp_inlayhints = pcall(require, "lsp-inlayhints")
-if not inlayhints_is_loaded then
-	print("Failed to load lsp-inlayhints")
-	return
-end
-
-local handler = require("user.lsp.handler")
 
 mason.setup()
 
@@ -32,36 +22,62 @@ mason_lspconfig.setup({
 	ensure_installed = { "lua_ls" },
 })
 
-lsp_inlayhints.setup({
-	only_current_line = true,
-})
+local function setup_lsp()
+	-- Diagnostic
+	local signs = {
+		{ name = "DiagnosticSignError", text = "" },
+		{ name = "DiagnosticSignWarn", text = "" },
+		{ name = "DiagnosticSignHint", text = "" },
+		{ name = "DiagnosticSignInfo", text = "" },
+	}
 
-local common_opts = {
-	on_attach = handler.on_attach,
-	capabilities = handler.capabilities,
+	for _, sign in ipairs(signs) do
+		vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+	end
+
+	local config = {
+		-- disable virtual text
+		virtual_text = false,
+		-- show signs
+		signs = {
+			active = signs,
+		},
+		update_in_insert = true,
+		underline = true,
+		severity_sort = true,
+		float = {
+			focusable = false,
+			style = "minimal",
+			border = "rounded",
+			source = "always",
+			header = "",
+			prefix = "",
+		},
+	}
+
+	vim.diagnostic.config(config)
+
+	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+		border = "rounded",
+	})
+
+	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+		border = "rounded",
+	})
+
+	vim.lsp.inlay_hint.enable(true)
+end
+
+setup_lsp()
+
+-- Setup per language
+-- NOTE: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+local languages = {
+	clangd = require("user.lsp.settings.clangd"),
+	lua_ls = require("user.lsp.settings.lua_ls"),
+	pyright = require("user.lsp.settings.pyright"),
 }
 
--- Configure lua LSP
-local lua_ls_settings = require("user.lsp.settings.lua_ls")
-local lua_ls_opts = vim.tbl_deep_extend("force", lua_ls_settings, common_opts)
-
-lspconfig.lua_ls.setup(lua_ls_opts)
-
--- Configure clangd LSP
-local clangd_opts = require("user.lsp.settings.clangd")
-
-lspconfig.clangd.setup({
-	cmd = { "clangd", "--header-insertion=never" },
-	capabilities = handler.capabilities,
-	on_attach = function(client, bufnr)
-		handler.on_attach(client, bufnr)
-		lsp_inlayhints.on_attach(client, bufnr)
-		clangd_opts.set_keymaps(bufnr)
-	end,
-})
-
--- Configure pylint LSP
-lspconfig.pyright.setup(common_opts)
-
--- Common
-handler.setup()
+for lang, opts in pairs(languages) do
+	lspconfig[lang].setup(opts)
+end
