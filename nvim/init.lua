@@ -50,7 +50,8 @@ local plugins = {
 	},
 	{
 		"akinsho/bufferline.nvim",
-		version = "*",
+		--version = "*",
+		branch = "main",
 		dependencies = "nvim-tree/nvim-web-devicons",
 		config = function()
 			local bufferline_opts = require("user.plugins.bufferline")
