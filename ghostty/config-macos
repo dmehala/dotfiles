@@ -1,0 +1,48 @@
+# Shell
+command = /opt/homebrew/bin/fish 
+#-l -c tmux attach || tmux
+shell-integration = fish
+
+# Font
+font-size = 14
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+# font-family             = "FiraCode Nerd Font Mono"
+# font-style              = "Retina"
+
+# Bold
+# font-family-bold        = "FiraCode Nerd Font Mono"
+# font-style-bold         = "Bold"
+
+# Italic
+# font-family-italic      = "FiraCode Nerd Font Mono"
+# font-style-italic       = "Italic"
+
+# Bold and Italic
+# font-family-bold-italic = "FiraCode Nerd Font Mono"
+# font-style-bold-italic  = "ExtraBold Italic"
+
+# Keybindt
+## NOTE: super is command on mac
+keybind = super+ctrl+v=new_split:right
+keybind = super+ctrl+h=new_split:down
+keybind = super+k=goto_split:top
+keybind = super+j=goto_split:bottom
+keybind = super+l=goto_split:right
+keybind = super+h=goto_split:left
+
+keybind = super+left=resize_split:left,20
+keybind = super+down=resize_split:down,20
+keybind = super+up=resize_split:up,20
+keybind = super+right=resize_split:right,20
+
+# Misc
+macos-option-as-alt     = true
+mouse-hide-while-typing = true
+
+clipboard-read = allow
+clipboard-write = allow
+copy-on-select = clipboard
+
+unfocused-split-opacity = 1
