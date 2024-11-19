@@ -21,20 +21,20 @@ vim.g.maplocalleader = " "
 local tmux_map = { h = "L", j = "D", k = "U", l = "R" }
 
 local function tmux_move(direction)
-  -- tmux select pane
-  local tmux_direction = tmux_map[direction]
-  vim.cmd([[silent exec "!tmux selectp -]] .. tmux_direction .. [["]])
+	-- tmux select pane
+	local tmux_direction = tmux_map[direction]
+	vim.cmd([[silent exec "!tmux selectp -]] .. tmux_direction .. [["]])
 end
 
 function move_window(direction)
-  -- Try to move to vim split
-  local win_num_before = vim.fn.winnr()
-  vim.cmd([[execute "wincmd ]] .. direction .. [["]])
-  if vim.fn.winnr() == win_num_before then
-    -- If the command did nothing, that means the current split
-    -- is at the edge and we need to select the tmux pane
-    tmux_move(direction)
-  end
+	-- Try to move to vim split
+	local win_num_before = vim.fn.winnr()
+	vim.cmd([[execute "wincmd ]] .. direction .. [["]])
+	if vim.fn.winnr() == win_num_before then
+		-- If the command did nothing, that means the current split
+		-- is at the edge and we need to select the tmux pane
+		tmux_move(direction)
+	end
 end
 
 keymap("n", "<C-h>", "<cmd>lua move_window('h')<cr>", opts)
@@ -49,7 +49,7 @@ keymap("n", "<C-l>", "<cmd>lua move_window('l')<cr>", opts)
 -- keymap("n", "<C-l>", "<C-w>l", opts)
 
 -- not working? :'(
-keymap("n", "<leader>e", ":Neotree toggle<cr>", opts)
+keymap("n", "<leader>e", ":Outline<CR>", opts)
 
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize +2<CR>", opts)
@@ -90,6 +90,12 @@ keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
 -- Plugins
-keymap("n", "ff", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", opts)
+keymap(
+	"n",
+	"ff",
+	"<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>",
+	opts
+)
 keymap("n", "fg", "<cmd>Telescope live_grep<cr>", opts)
 keymap("n", "<a-o>", ":ClangdSwitchSourceHeader<cr>", opts)
+keymap("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })

@@ -28,16 +28,38 @@ local plugins = {
 			vim.cmd([[colorscheme sonokai]])
 		end,
 	},
+	-- {
+	-- 	"nvim-neo-tree/neo-tree.nvim",
+	-- 	dependencies = {
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+	-- 		"MunifTanjim/nui.nvim",
+	-- 	},
+	-- 	config = function()
+	-- 		local neotree_opts = require("user.plugins.neotree")
+	-- 		require("neo-tree").setup(neotree_opts)
+	-- 	end,
+	-- },
 	{
-		"nvim-neo-tree/neo-tree.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-			"MunifTanjim/nui.nvim",
-		},
+		"stevearc/oil.nvim",
+		opts = {},
+		-- dependencies = { { "echasnovski/mini.icons", opts = {} } },
+		dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
 		config = function()
-			local neotree_opts = require("user.plugins.neotree")
-			require("neo-tree").setup(neotree_opts)
+			local oil_opts = require("user.plugins.oil")
+			require("oil").setup(oil_opts)
+		end,
+	},
+	{
+		"hedyhli/outline.nvim",
+		config = function()
+			require("outline").setup({
+				outline_window = {
+					position = "left",
+					auto_close = true,
+					width = 10,
+				},
+			})
 		end,
 	},
 	{
