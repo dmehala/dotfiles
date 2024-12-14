@@ -76,6 +76,7 @@ local languages = {
 	clangd = require("user.lsp.settings.clangd"),
 	lua_ls = require("user.lsp.settings.lua_ls"),
 	pyright = require("user.lsp.settings.pyright"),
+	zls = require("user.lsp.settings.zls"),
 }
 
 for lang, opts in pairs(languages) do
