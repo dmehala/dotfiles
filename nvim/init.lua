@@ -28,18 +28,19 @@ local plugins = {
 			vim.cmd([[colorscheme sonokai]])
 		end,
 	},
-	-- {
-	-- 	"nvim-neo-tree/neo-tree.nvim",
-	-- 	dependencies = {
-	-- 		"nvim-lua/plenary.nvim",
-	-- 		"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-	-- 		"MunifTanjim/nui.nvim",
-	-- 	},
-	-- 	config = function()
-	-- 		local neotree_opts = require("user.plugins.neotree")
-	-- 		require("neo-tree").setup(neotree_opts)
-	-- 	end,
-	-- },
+	{
+		"OXY2DEV/markview.nvim",
+		lazy = true,
+		ft = "markdown",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+		config = function()
+			local markview_opts = require("user.plugins.markview")
+			require("markview").setup(markview_opts)
+		end,
+	},
 	{
 		"stevearc/oil.nvim",
 		opts = {},
@@ -179,6 +180,15 @@ local plugins = {
 		config = function()
 			local conform_opts = require("user.plugins.conform")
 			require("conform").setup(conform_opts)
+		end,
+	},
+	-- Movements
+	{
+		"echasnovski/mini.surround",
+		version = "*",
+		config = function()
+			local opts = require("user.plugins.mini-surround")
+			require("mini.surround").setup(opts)
 		end,
 	},
 	-- Others
