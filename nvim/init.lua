@@ -150,6 +150,11 @@ local plugins = {
 		end,
 	},
 	{
+		"bezhermoso/tree-sitter-ghostty",
+		build = "make nvim_install",
+		ft = "ghostty",
+	},
+	{
 		"williamboman/mason.nvim",
 		dependencies = {
 			"williamboman/mason-lspconfig.nvim",
@@ -199,11 +204,42 @@ local plugins = {
 	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.6",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope-ui-select.nvim",
+		},
+		config = function()
+			local telescope = require("telescope")
+			telescope.setup({
+				extensions = {
+					["ui-select"] = {
+						require("telescope.themes").get_dropdown({}),
+					},
+				},
+			})
+
+			telescope.load_extension("ui-select")
+		end,
 	},
 	{
 		"nvim-telescope/telescope-fzf-native.nvim",
 		build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+	},
+	-- DAP
+	{
+		"mfussenegger/nvim-dap",
+		tag = "0.9.0",
+		dependencies = {
+			"igorlfs/nvim-dap-view",
+			"theHamsta/nvim-dap-virtual-text",
+			"leoluz/nvim-dap-go",
+			"julianolf/nvim-dap-lldb",
+			"nvim-telescope/telescope-dap.nvim",
+			"nvim-lua/plenary.nvim",
+		},
+		config = function()
+			require("user.plugins.dap").setup()
+		end,
 	},
 }
 
