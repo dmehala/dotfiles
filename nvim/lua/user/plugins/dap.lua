@@ -81,7 +81,7 @@ local function set_keymaps()
 	vim.keymap.set("n", "<F12>", dap.step_out, {})
 	vim.keymap.set("n", "<F9>", dap.toggle_breakpoint, {})
 	vim.keymap.set("n", "<Leader>B", dap.set_breakpoint, {})
-	vim.keymap.set("n", "<Leader>w", dap_view.add_expr, {})
+	vim.keymap.set("n", "<Leader>dw", dap_view.add_expr, {})
 
 	-- Telescope
 	local telescope_dap = require("telescope").extensions.dap
