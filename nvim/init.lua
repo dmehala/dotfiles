@@ -159,25 +159,50 @@ local plugins = {
 		dependencies = {
 			"williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
+			"saghen/blink.cmp",
 		},
 		config = function()
 			require("user.lsp")
 		end,
 	},
+	-- {
+	-- 	"hrsh7th/nvim-cmp",
+	-- 	event = "InsertEnter",
+	-- 	dependencies = {
+	-- 		"hrsh7th/cmp-nvim-lsp",
+	-- 		"hrsh7th/cmp-buffer",
+	-- 		"hrsh7th/nvim-cmp",
+	-- 		"hrsh7th/cmp-path",
+	-- 		"hrsh7th/cmp-cmdline",
+	-- 	},
+	-- 	config = function()
+	-- 		local cmp_opts = require("user.plugins.cmp")
+	-- 		require("cmp").setup(cmp_opts)
+	-- 	end,
+	-- },
 	{
-		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
-		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/nvim-cmp",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-cmdline",
+		"saghen/blink.cmp",
+		dependencies = { "rafamadriz/friendly-snippets" },
+		version = "1.*",
+		opts = {
+			keymap = {
+				preset = "none",
+				["<C-j>"] = { "select_next", "fallback" },
+				["<C-k>"] = { "select_prev", "fallback" },
+				["<C-space>"] = { "show", "fallback" },
+				["<C-d>"] = { "show_documentation", "hide_signature", "fallback" },
+				["<CR>"] = { "accept", "fallback" },
+			},
+			appearance = {
+				nerd_font_variant = "mono",
+			},
+			completion = { documentation = { auto_show = false } },
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer" },
+			},
+			fuzzy = { implementation = "prefer_rust_with_warning" },
 		},
-		config = function()
-			local cmp_opts = require("user.plugins.cmp")
-			require("cmp").setup(cmp_opts)
-		end,
+		opts_extend = { "sources.default" },
 	},
 	{
 		"stevearc/conform.nvim",

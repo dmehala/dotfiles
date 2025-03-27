@@ -54,10 +54,16 @@ local function lsp_capabilities()
 		lineFoldingOnly = true,
 	}
 
-	local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+	-- local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+	-- if not ok then
+	-- 	print('Not able to load "cmp_nvim_lsp" plugin')
+	-- 	return cmp_nvim_lsp.default_capabilities(capabilities)
+	-- end
+
+	local ok, blink_cmp = pcall(require, "blink.cmp")
 	if not ok then
-		print('Not able to load "cmp_nvim_lsp" plugin')
-		return cmp_nvim_lsp.default_capabilities(capabilities)
+		print('Not able to load "blink.cmp" plugin')
+		capabilities = vim.tbl_deep_extend("force", capabilities, blink_cmp.get_lsp_capabilities({}, false))
 	end
 
 	return capabilities
