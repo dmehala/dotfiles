@@ -2,6 +2,9 @@
 require("user.keymaps")
 require("user.options")
 
+-- Enables project-local configuration
+vim.o.exrc = true
+
 -- Bootstrap Lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -25,7 +28,18 @@ local plugins = {
 		priority = 1000, -- make sure to load this before all the other start plugins
 		config = function()
 			-- load the colorscheme here
-			vim.cmd([[colorscheme sonokai]])
+			-- vim.g.sonokai_style = "atlantis"
+			vim.g.sonokai_style = "andromeda"
+			vim.cmd.colorscheme("sonokai")
+		end,
+	},
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+		config = function()
+			-- load the colorscheme here
+			-- vim.cmd.colorscheme("catppuccin-macchiato")
 		end,
 	},
 	{
@@ -82,8 +96,10 @@ local plugins = {
 		end,
 	},
 	{
+		"tpope/vim-fugitive",
+	},
+	{
 		"lewis6991/gitsigns.nvim",
-		lazy = true,
 		config = function()
 			local gitsigns_opts = require("user.plugins.gitsigns")
 			require("gitsigns").setup(gitsigns_opts)
@@ -96,11 +112,8 @@ local plugins = {
 		"kevinhwang91/nvim-ufo",
 		dependencies = { "kevinhwang91/promise-async" },
 		config = function()
-			require("ufo").setup({
-				provider_selector = function(bufnr, filetype, buftype)
-					return { "lsp", "indent" }
-				end,
-			})
+			local cfg = require("user.plugins.ufo")
+			require("ufo").setup(cfg)
 		end,
 	},
 	{

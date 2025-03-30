@@ -41,6 +41,26 @@ keymap("n", "<C-h>", "<cmd>lua move_window('h')<cr>", opts)
 keymap("n", "<C-j>", "<cmd>lua move_window('j')<cr>", opts)
 keymap("n", "<C-k>", "<cmd>lua move_window('k')<cr>", opts)
 keymap("n", "<C-l>", "<cmd>lua move_window('l')<cr>", opts)
+keymap("n", "<leader>c", ":e $MYVIMRC | cd %:p:h<cr>", opts)
+
+-- Command for looping back to the beginning
+-- of the quick list.
+vim.api.nvim_create_user_command("Cnext", function()
+	local ok, _ = pcall(vim.cmd.cnext)
+	if not ok then
+		vim.cmd.cfirst()
+	end
+end, {})
+
+vim.api.nvim_create_user_command("Cprev", function()
+	local ok, _ = pcall(vim.cmd.cprev)
+	if not ok then
+		vim.cmd.clast()
+	end
+end, {})
+
+keymap("n", "[q", ":Cprev <cr>", opts)
+keymap("n", "]q", ":Cnext <cr>", opts)
 
 -- Fallback
 -- keymap("n", "<C-h>", "<C-w>h", opts)
