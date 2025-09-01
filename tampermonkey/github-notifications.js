@@ -12,8 +12,10 @@
     'use strict';
 
     const ignoreRepos = [
-        'DataDog/system-tests'
-       ,'DataDog/dd-trace-js'
+        'DataDog/system-tests',
+        'DataDog/dd-trace-js',
+        'DataDog/injector-dev',
+        'DataDog/datadog-agent',
     ];
 
     function filterNotificationGroups() {
@@ -31,15 +33,9 @@
         });
     }
 
-    // Run on page load
-    window.addEventListener('load', () => {
+    if(document.readyState == 'complete') {
         filterNotificationGroups();
-
-        // Use MutationObserver to watch for changes
-        const observer = new MutationObserver(filterNotificationGroups);
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-    });
+    } else {
+        window.addEventListener('load', filterNotificationGroups);
+    }
 })();
