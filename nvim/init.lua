@@ -132,8 +132,9 @@ local plugins = {
 	},
 	{
 		"williamboman/mason.nvim",
+		version = "^1.0.0",
 		dependencies = {
-			"williamboman/mason-lspconfig.nvim",
+			{ "williamboman/mason-lspconfig.nvim", version = "^1.0.0" },
 			"neovim/nvim-lspconfig",
 			"saghen/blink.cmp",
 		},
