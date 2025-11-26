@@ -4,7 +4,8 @@
 // @version      1.1
 // @description  Filter out GitHub notifications from repos I don't care but the company believe I should care
 // @author       dmehala && ChatGPT 5
-// @match        https://github.com/notifications*
+// @match        https://github.com/notifications
+// @run-at       document-start
 // @grant        none
 // ==/UserScript==
 
@@ -16,6 +17,10 @@
         'DataDog/dd-trace-js',
         'DataDog/injector-dev',
         'DataDog/datadog-agent',
+        'DataDog/datadog-api-spec',
+        'DataDog/dd-source',
+        'DataDog/dd-go',
+        'DataDog/k8s-resources',
     ];
 
     function filterNotificationGroups() {
