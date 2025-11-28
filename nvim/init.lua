@@ -204,32 +204,40 @@ local plugins = {
 		event = "VeryLazy",
 	},
 	{
-		"nvim-telescope/telescope.nvim",
-		tag = "0.1.6",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope-ui-select.nvim",
-		},
-		config = function()
-			local telescope = require("telescope")
-			telescope.setup({
-				defaults = {
-					layout_strategy = "vertical",
-				},
-				extensions = {
-					["ui-select"] = {
-						require("telescope.themes").get_dropdown({}),
-					},
-				},
-			})
-
-			telescope.load_extension("ui-select")
-		end,
+		"ibhagwan/fzf-lua",
+		-- optional for icon support
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		-- or if using mini.icons/mini.nvim
+		-- dependencies = { "nvim-mini/mini.icons" },
+		opts = {},
 	},
-	{
-		"nvim-telescope/telescope-fzf-native.nvim",
-		build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-	},
+	-- {
+	-- 	"nvim-telescope/telescope.nvim",
+	-- 	tag = "0.1.6",
+	-- 	dependencies = {
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		"nvim-telescope/telescope-ui-select.nvim",
+	-- 	},
+	-- 	config = function()
+	-- 		local telescope = require("telescope")
+	-- 		telescope.setup({
+	-- 			defaults = {
+	-- 				layout_strategy = "vertical",
+	-- 			},
+	-- 			extensions = {
+	-- 				["ui-select"] = {
+	-- 					require("telescope.themes").get_dropdown({}),
+	-- 				},
+	-- 			},
+	-- 		})
+	--
+	-- 		telescope.load_extension("ui-select")
+	-- 	end,
+	-- },
+	-- {
+	-- 	"nvim-telescope/telescope-fzf-native.nvim",
+	-- 	build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+	-- },
 	-- DAP
 	{
 		"mfussenegger/nvim-dap",
@@ -239,7 +247,7 @@ local plugins = {
 			"theHamsta/nvim-dap-virtual-text",
 			"leoluz/nvim-dap-go",
 			"julianolf/nvim-dap-lldb",
-			"nvim-telescope/telescope-dap.nvim",
+			-- "nvim-telescope/telescope-dap.nvim",
 			"nvim-lua/plenary.nvim",
 		},
 		config = function()

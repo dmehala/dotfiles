@@ -110,12 +110,7 @@ keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
 -- Plugins
-keymap(
-	"n",
-	"ff",
-	"<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>",
-	opts
-)
-keymap("n", "fg", "<cmd>Telescope live_grep<cr>", opts)
+keymap("n", "ff", ':lua require("fzf-lua").files()<cr>', opts)
+keymap("n", "fg", ':lua require("fzf-lua").live_grep()<cr>', opts)
 keymap("n", "<a-o>", ":ClangdSwitchSourceHeader<cr>", opts)
 keymap("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })

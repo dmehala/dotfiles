@@ -20,60 +20,6 @@ local function set_configurations()
 	}
 end
 
-local function start_with_configuration()
-	-- Wrote before I found `telescope-ui-select` ><.
-	local configuration_picker = function(opts, configurations)
-		local pickers = require("telescope.pickers")
-		local finders = require("telescope.finders")
-		local conf = require("telescope.config").values
-		local actions = require("telescope.actions")
-		local action_state = require("telescope.actions.state")
-		opts = opts or {}
-
-		pickers
-			.new(opts, {
-				finder = finders.new_table({
-					results = configurations,
-					entry_maker = function(entry)
-						return {
-							value = entry,
-							display = entry[1],
-							ordinal = entry[1],
-						}
-					end,
-				}),
-				sorter = conf.generic_sorter(opts),
-				attach_mappings = function(bufnr, _)
-					actions.select_default:replace(function()
-						actions.close(bufnr)
-						local selection = action_state.get_selected_entry()
-						dap.run(selection.value[2], {})
-					end)
-
-					return true
-				end,
-			})
-			:find()
-	end
-
-	local config_path = ".vscode/launch.json"
-	if vim.fn.filereadable(config_path) ~= 1 then
-		vim.notify(config_path .. " not found. Can't launch the debugger.", vim.log.levels.ERROR)
-		return
-	end
-
-	local config_content = table.concat(vim.fn.readfile(config_path), "\n")
-	local j = vim.json.decode(json.json_strip_comments(config_content))
-
-	local configurations = {}
-	for _, cf in ipairs(j.configurations) do
-		table.insert(configurations, { cf.name, cf })
-	end
-
-	-- TODO: Handle when launch.json is empty
-	configuration_picker(require("telescope.themes").get_dropdown({}), configurations)
-end
-
 local function set_keymaps()
 	vim.keymap.set("n", "<F5>", dap.continue, {})
 	vim.keymap.set("n", "<F10>", dap.step_over, {})
@@ -84,9 +30,9 @@ local function set_keymaps()
 	-- vim.keymap.set("n", "<Leader>dw", dap_view.add_expr, {})
 
 	-- Telescope
-	local telescope_dap = require("telescope").extensions.dap
-	vim.keymap.set("n", "fb", telescope_dap.list_breakpoints, {})
-	vim.keymap.set("n", "fc", telescope_dap.frames, {})
+	-- local telescope_dap = require("telescope").extensions.dap
+	-- vim.keymap.set("n", "fb", telescope_dap.list_breakpoints, {})
+	-- vim.keymap.set("n", "fc", telescope_dap.frames, {})
 end
 
 local function setup()
