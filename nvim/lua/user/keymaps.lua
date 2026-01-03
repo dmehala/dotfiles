@@ -2,7 +2,7 @@ local opts = { noremap = true, silent = true }
 local term_opts = { silent = true }
 
 -- alias
-local keymap = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
 
 -- keymapping
 keymap("", "<Space>", "<Nop>", opts)

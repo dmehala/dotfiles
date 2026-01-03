@@ -70,6 +70,13 @@ end
 
 setup_lsp()
 
+local common = require("user.lsp.common")
+
+local default_opts = {
+	capabilities = common.capabilities,
+	on_attach = common.on_attach,
+}
+
 -- Setup per language
 -- NOTE: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 local languages = {
@@ -78,6 +85,7 @@ local languages = {
 	pyright = require("user.lsp.settings.pyright"),
 	zls = require("user.lsp.settings.zls"),
 	gopls = require("user.lsp.settings.gopls"),
+	asm_lsp = default_opts,
 }
 
 for lang, opts in pairs(languages) do

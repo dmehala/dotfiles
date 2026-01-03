@@ -1,11 +1,11 @@
 -- Sets of common LSP function accross all languages
 local function lsp_keymaps(bufnr)
-	local telescope_builtin = require("telescope.builtin")
+	local picker = require("fzf-lua")
 	local opts = { noremap = true, silent = true }
 
-	vim.keymap.set("n", "gr", telescope_builtin.lsp_references, opts)
-	vim.keymap.set("n", "gd", telescope_builtin.lsp_definitions, opts)
-	vim.keymap.set("n", "gi", telescope_builtin.lsp_implementations, opts)
+	vim.keymap.set("n", "gr", picker.lsp_references, opts)
+	vim.keymap.set("n", "gd", picker.lsp_definitions, opts)
+	vim.keymap.set("n", "gi", picker.lsp_implementations, opts)
 
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
