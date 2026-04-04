@@ -11,6 +11,7 @@
     pkgs.zig#0.15.2
     pkgs.swaybg
     pkgs.waypaper
+    pkgs.bazelisk
   ];
 
   home.file = {
@@ -35,6 +36,8 @@
   #  - waybar
   programs.gpg.enable = true;
 
+  programs.fzf.enable = true;
+
   programs.elephant = {
     enable = true;
     installService = true;
@@ -50,6 +53,25 @@
     shellAliases = {
       g = "git";
     };
+    shellInit = ''
+      if not set -q SSH_AUTH_SOCK
+        eval (ssh-agent -c)
+        set -Ux SSH_AUTH_SOCK $SSH_AUTH_SOCK
+        set -Ux SSH_AGENT_PID $SSH_AGENT_PID
+      end
+    '';
+  };
+
+  programs.ssh = {
+    enable = true;
+    matchBlocks = {
+      "github.com" = {
+        addKeysToAgent = "yes";
+        hostname = "github.com";
+        identitiesOnly = true;
+        identityFile = "~/.ssh/id_ed25519";
+      };
+    };
   };
 
   programs.git = {
@@ -57,7 +79,7 @@
     settings = {
       user.name = "Damien Mehala";
       user.email = "gh@sunnymail.cc";
-      aliases = { 
+      alias = { 
         co = "checkout"; 
         st = "status";
       };

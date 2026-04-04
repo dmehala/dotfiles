@@ -12,8 +12,14 @@
     "tray",
     "pulseaudio",
     "clock",
+    "custom/suspend",
     "custom/power"
   ],
+  "custom/suspend": {
+    "format": "  ",
+    "on-click": "systemctl suspend",
+    "tooltip": false
+  },
   "custom/power": {
     "format": "  ",
     "on-click": "poweroff",
