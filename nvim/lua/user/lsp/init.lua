@@ -1,9 +1,3 @@
-local lspconfig_is_loaded, lspconfig = pcall(require, "lspconfig")
-if not lspconfig_is_loaded then
-	print("ERROR: Failed to load lspconfig")
-	return
-end
-
 local mason_is_loaded, mason = pcall(require, "mason")
 if not mason_is_loaded then
 	print("ERROR: Failed to load mason")
@@ -57,13 +51,8 @@ local function setup_lsp()
 
 	vim.diagnostic.config(config)
 
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-		border = "rounded",
-	})
-
-	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-		border = "rounded",
-	})
+	vim.lsp.handlers["textDocument/hover"] = vim.lsp.buf.hover({ border = "rounded" })
+	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.buf.signature_help({ border = "rounded" })
 
 	vim.lsp.inlay_hint.enable(true)
 end
@@ -89,5 +78,5 @@ local languages = {
 }
 
 for lang, opts in pairs(languages) do
-	lspconfig[lang].setup(opts)
+	vim.lsp.config[lang] = opts
 end

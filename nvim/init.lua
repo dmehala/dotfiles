@@ -42,19 +42,19 @@ local plugins = {
 			-- vim.cmd.colorscheme("catppuccin-macchiato")
 		end,
 	},
-	{
-		"OXY2DEV/markview.nvim",
-		lazy = true,
-		ft = "markdown",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-tree/nvim-web-devicons",
-		},
-		config = function()
-			local markview_opts = require("user.plugins.markview")
-			require("markview").setup(markview_opts)
-		end,
-	},
+	-- {
+	-- 	"OXY2DEV/markview.nvim",
+	-- 	lazy = true,
+	-- 	ft = "markdown",
+	-- 	dependencies = {
+	-- 		"nvim-treesitter/nvim-treesitter",
+	-- 		"nvim-tree/nvim-web-devicons",
+	-- 	},
+	-- 	config = function()
+	-- 		local markview_opts = require("user.plugins.markview")
+	-- 		require("markview").setup(markview_opts)
+	-- 	end,
+	-- },
 	{
 		"stevearc/oil.nvim",
 		opts = {},
@@ -119,10 +119,34 @@ local plugins = {
 	-- Lang/LSP
 	{
 		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
 		config = function()
 			local treesitter_opts = require("user.plugins.treesitter")
 			require("nvim-treesitter.install").prefer_git = false
-			require("nvim-treesitter.configs").setup(treesitter_opts)
+			require("nvim-treesitter").setup(treesitter_opts)
+		end,
+		init = function()
+			local ensureInstalled = {
+				"lua",
+				"cpp",
+				"zig",
+			}
+			local alreadyInstalled = require("nvim-treesitter.config").get_installed()
+			local parsersToInstall = vim.iter(ensureInstalled)
+				:filter(function(parser)
+					return not vim.tbl_contains(alreadyInstalled, parser)
+				end)
+				:totable()
+			require("nvim-treesitter").install(parsersToInstall)
+
+			vim.api.nvim_create_autocmd("FileType", {
+				callback = function()
+					-- Enable treesitter highlighting and disable regex syntax
+					pcall(vim.treesitter.start)
+					-- Enable treesitter-based indentation
+					vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				end,
+			})
 		end,
 	},
 	{
