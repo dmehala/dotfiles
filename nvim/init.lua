@@ -271,6 +271,8 @@ local plugins = {
 			"theHamsta/nvim-dap-virtual-text",
 			"leoluz/nvim-dap-go",
 			"julianolf/nvim-dap-lldb",
+      "rcarriga/nvim-dap-ui",
+      "nvim-neotest/nvim-nio",
 			-- "nvim-telescope/telescope-dap.nvim",
 			"nvim-lua/plenary.nvim",
 		},

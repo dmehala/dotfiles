@@ -1,6 +1,6 @@
 local dap = require("dap")
--- local dap_view = require("dap-view")
 local json = require("plenary.json")
+local dapui = require("dapui")
 
 local function set_adapters()
 	require("dap-go").setup()
@@ -27,6 +27,7 @@ local function set_keymaps()
 	vim.keymap.set("n", "<F12>", dap.step_out, {})
 	vim.keymap.set("n", "<F9>", dap.toggle_breakpoint, {})
 	vim.keymap.set("n", "<Leader>B", dap.set_breakpoint, {})
+  vim.keymap.set("n", "<Leader>K", dapui.eval, {})
 	-- vim.keymap.set("n", "<Leader>dw", dap_view.add_expr, {})
 
 	-- Telescope
@@ -46,16 +47,11 @@ local function setup()
 	set_configurations()
 	set_keymaps()
 
-	-- dap.listeners.before.attach.dapui_config = dap_view.open
-	-- dap.listeners.before.launch.dapui_config = dap_view.open
-	-- dap.listeners.before.event_terminated.dapui_config = function()
-	-- 	dap_view.close(true)
-	-- end
-	-- dap.listeners.before.event_exited.dapui_config = function()
-	-- 	dap_view.close(true)
-	-- end
+	dap.listeners.before.attach.dapui_config = dapui.open
+	dap.listeners.before.launch.dapui_config = dapui.open
 
 	require("nvim-dap-virtual-text").setup()
+  dapui.setup()
 end
 
 return {

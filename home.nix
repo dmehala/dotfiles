@@ -4,14 +4,15 @@
   home.username = "dmehala";
   home.homeDirectory = "/home/dmehala";
 
-  home.stateVersion = "25.11"; # Please read the comment before changing.
+  home.stateVersion = "25.11";
 
   home.packages = [
-    pkgs.neovim#0.11.5
+    pkgs.neovim#0.12.1
     pkgs.zig#0.15.2
     pkgs.swaybg
     pkgs.waypaper
     pkgs.bazelisk
+    pkgs.luajitPackages.tree-sitter-cli
   ];
 
   home.file = {
