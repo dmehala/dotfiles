@@ -48,6 +48,8 @@
     runAsService = true;
   };
 
+  programs.hyprshot.enable = true;
+
   programs.fish = {
     enable = true;
     shellAliases = {
@@ -85,4 +87,6 @@
       };
     };
   };
+
+  programs.asciinema.enable = true;
 }
