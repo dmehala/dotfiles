@@ -42,19 +42,6 @@ local plugins = {
 			-- vim.cmd.colorscheme("catppuccin-macchiato")
 		end,
 	},
-	-- {
-	-- 	"OXY2DEV/markview.nvim",
-	-- 	lazy = true,
-	-- 	ft = "markdown",
-	-- 	dependencies = {
-	-- 		"nvim-treesitter/nvim-treesitter",
-	-- 		"nvim-tree/nvim-web-devicons",
-	-- 	},
-	-- 	config = function()
-	-- 		local markview_opts = require("user.plugins.markview")
-	-- 		require("markview").setup(markview_opts)
-	-- 	end,
-	-- },
 	{
 		"stevearc/oil.nvim",
 		opts = {},
@@ -166,21 +153,6 @@ local plugins = {
 			require("user.lsp")
 		end,
 	},
-	-- {
-	-- 	"hrsh7th/nvim-cmp",
-	-- 	event = "InsertEnter",
-	-- 	dependencies = {
-	-- 		"hrsh7th/cmp-nvim-lsp",
-	-- 		"hrsh7th/cmp-buffer",
-	-- 		"hrsh7th/nvim-cmp",
-	-- 		"hrsh7th/cmp-path",
-	-- 		"hrsh7th/cmp-cmdline",
-	-- 	},
-	-- 	config = function()
-	-- 		local cmp_opts = require("user.plugins.cmp")
-	-- 		require("cmp").setup(cmp_opts)
-	-- 	end,
-	-- },
 	{
 		"saghen/blink.cmp",
 		dependencies = { "rafamadriz/friendly-snippets" },
@@ -235,33 +207,6 @@ local plugins = {
 		-- dependencies = { "nvim-mini/mini.icons" },
 		opts = {},
 	},
-	-- {
-	-- 	"nvim-telescope/telescope.nvim",
-	-- 	tag = "0.1.6",
-	-- 	dependencies = {
-	-- 		"nvim-lua/plenary.nvim",
-	-- 		"nvim-telescope/telescope-ui-select.nvim",
-	-- 	},
-	-- 	config = function()
-	-- 		local telescope = require("telescope")
-	-- 		telescope.setup({
-	-- 			defaults = {
-	-- 				layout_strategy = "vertical",
-	-- 			},
-	-- 			extensions = {
-	-- 				["ui-select"] = {
-	-- 					require("telescope.themes").get_dropdown({}),
-	-- 				},
-	-- 			},
-	-- 		})
-	--
-	-- 		telescope.load_extension("ui-select")
-	-- 	end,
-	-- },
-	-- {
-	-- 	"nvim-telescope/telescope-fzf-native.nvim",
-	-- 	build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-	-- },
 	-- DAP
 	{
 		"mfussenegger/nvim-dap",
@@ -273,7 +218,6 @@ local plugins = {
 			"julianolf/nvim-dap-lldb",
       "rcarriga/nvim-dap-ui",
       "nvim-neotest/nvim-nio",
-			-- "nvim-telescope/telescope-dap.nvim",
 			"nvim-lua/plenary.nvim",
 		},
 		config = function()
@@ -281,12 +225,5 @@ local plugins = {
 		end,
 	},
 }
-
--- TODO:
-
--- Maybe:
--- use "L3MON4D3/LuaSnip"
--- use { "nathom/tmux.nvim" }
--- use "sindrets/diffview.nvim"
 
 require("lazy").setup(plugins)
