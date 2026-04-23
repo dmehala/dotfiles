@@ -1,25 +1,32 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
+let
+  isLinux = pkgs.stdenv.hostPlatform.isLinux;
+  unsupported = builtins.abort "unsupported platform";
+in
 {
   home.username = "dmehala";
   home.homeDirectory = "/home/dmehala";
 
   home.stateVersion = "25.11";
 
-  home.packages = [
-    pkgs.neovim#0.12.1
-    pkgs.zig#0.15.2
-    pkgs.swaybg
-    pkgs.waypaper
-    pkgs.bazelisk
-    pkgs.luajitPackages.tree-sitter-cli
-  ];
+  home.packages =  with pkgs; ([
+    neovim#0.12.1
+    zig#0.15.2
+    bazelisk
+    luajitPackages.tree-sitter-cli
+    nerd-fonts.jetbrains-mono
+  ] ++ lib.optionals isLinux [
+    swaybg
+    waypaper
+  ]);
 
   home.file = {
     ".config/hypr".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/hypr";
     ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/nvim";
     ".config/waybar".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/waybar";
     ".config/ghostty".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/ghostty";
+    ".local/bin/bazel".source = "${pkgs.bazelisk}/bin/bazelisk";
   };
 
   home.sessionVariables = {
@@ -67,6 +74,7 @@
 
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
     matchBlocks = {
       "github.com" = {
         addKeysToAgent = "yes";
