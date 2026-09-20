@@ -186,14 +186,6 @@ local plugins = {
 		end,
 	},
 	-- Movements
-	{
-		"echasnovski/mini.surround",
-		version = "*",
-		config = function()
-			local opts = require("user.plugins.mini-surround")
-			require("mini.surround").setup(opts)
-		end,
-	},
 	-- Others
 	{
 		"famiu/bufdelete.nvim",
@@ -207,6 +199,20 @@ local plugins = {
 		-- dependencies = { "nvim-mini/mini.icons" },
 		opts = {},
 	},
+	{
+		"lewistg/pesto.nvim",
+		config = function()
+			local presto_opts = require("user.plugins.presto")
+			require("pesto").setup(presto_opts)
+		end,
+	},
+	{
+		"stevearc/quicker.nvim",
+		ft = "qf",
+		---@module "quicker"
+		---@type quicker.SetupOptions
+		opts = {},
+	},
 	-- DAP
 	{
 		"mfussenegger/nvim-dap",
@@ -216,8 +222,8 @@ local plugins = {
 			"theHamsta/nvim-dap-virtual-text",
 			"leoluz/nvim-dap-go",
 			"julianolf/nvim-dap-lldb",
-      "rcarriga/nvim-dap-ui",
-      "nvim-neotest/nvim-nio",
+			"rcarriga/nvim-dap-ui",
+			"nvim-neotest/nvim-nio",
 			"nvim-lua/plenary.nvim",
 		},
 		config = function()
